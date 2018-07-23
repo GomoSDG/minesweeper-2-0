@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {IGameObject} from '../square/models/IGameObject';
 import {Playground} from '../Minesweeper/Playground';
 import {ISquare} from '../square/models/Square';
 

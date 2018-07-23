@@ -1,6 +1,6 @@
 import {GameObject} from './GameObject';
 
-interface ISquare {
+export interface ISquare {
   hasFlag: boolean;
   hasMine: boolean;
 
