@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Playground} from '../Minesweeper/Playground';
+import {Playground} from '../models/Playground';
 import {ISquare, Square} from '../models/Square';
 
 @Component({

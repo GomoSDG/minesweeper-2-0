@@ -1,4 +1,4 @@
-import {Square} from '../models/Square';
+import {Square} from './Square';
 import {Point} from '../transformations/Point';
 
 export class Playground {
