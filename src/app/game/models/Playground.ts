@@ -44,7 +44,6 @@ export class Playground {
   }
 
   cascadeZeroSquare({col, row}) {
-    console.log('Yes!!!');
     for (let y = row - 1; y < row + 3; y++) {
       if (y < 0 || y > this.squares[0].length - 1) {
         continue;
@@ -57,9 +56,9 @@ export class Playground {
 
         const currentSquare = this.squares[x][y];
         const surroundingMines = currentSquare.surroundingMines
-        const isNoneZero = currentSquare.isNoneZero;
+        const isNoneZero = currentSquare.isNoneZero;)
 
-        if (!isNoneZero && !currentSquare.popped && surroundingMines === 0) {
+        if (!currentSquare.popped && surroundingMines === 0 && !currentSquare.hasMine) {
           this.pop(currentSquare.col, currentSquare.row);
         }
       }
@@ -70,7 +69,6 @@ export class Playground {
     const currentSquare = this.squares[x][y];
     const revealInfo: any = currentSquare.pop();
     if (currentSquare.surroundingMines === 0) {
-      console.log('Cascading!!!');
       this.cascadeZeroSquare(this.squares[x][y]);
     }
     return revealInfo;
@@ -88,7 +86,6 @@ export class Playground {
 
         square.surroundingMines = this.countMines(square);
       } catch (e) {
-        console.log('not a block');
       }
     }
   }
