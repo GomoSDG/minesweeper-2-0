@@ -79,7 +79,7 @@ export class Square extends GameObject implements ISquare {
       if (!this.hasFlag) {
         this.template = 'flag_square';
       } else {
-        this.template = 'mineSquare';
+        this.template = 'bordered_square';
       }
       return this.hasFlag = !this.hasFlag;
   }

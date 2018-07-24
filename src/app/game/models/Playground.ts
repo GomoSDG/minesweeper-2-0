@@ -16,7 +16,7 @@ export class Playground {
   }
 
   constructor() {
-    this.groundWidth = 11, this.groundHeight = 10;
+    this.groundWidth = 5, this.groundHeight = 5;
     this.generateGround(this.groundWidth, this.groundHeight);
     this.generateMines(5);
     this.generateNumbers();
@@ -56,7 +56,7 @@ export class Playground {
 
         const currentSquare = this.squares[x][y];
         const surroundingMines = currentSquare.surroundingMines
-        const isNoneZero = currentSquare.isNoneZero;)
+        const isNoneZero = currentSquare.isNoneZero;
 
         if (!currentSquare.popped && surroundingMines === 0 && !currentSquare.hasMine) {
           this.pop(currentSquare.col, currentSquare.row);
