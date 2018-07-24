@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Playground} from '../Minesweeper/Playground';
-import {ISquare} from '../square/models/Square';
+import {ISquare, Square} from '../square/models/Square';
 
 @Component({
   selector: 'app-screen',
@@ -9,7 +9,7 @@ import {ISquare} from '../square/models/Square';
 })
 export class ScreenComponent implements OnInit {
   public squareSize = 20;
-  gameObjects: ISquare[] = [];
+  gameObjects: Square[] = [];
   private playground: Playground;
 
   constructor() { }
@@ -21,7 +21,14 @@ export class ScreenComponent implements OnInit {
 
 
   click(e, x, y) {
-    this.playground.pop(x, y);
+    console.log(e.button);
+    if (e.button === 2) {
+      this.playground.toggleFlag(x, y);
+      // e.stopImmediatePropagation();
+    } else {
+      this.playground.pop(x, y);
+    }
+
   }
 
 }
