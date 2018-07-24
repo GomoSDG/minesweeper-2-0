@@ -82,13 +82,13 @@
       </g>
     </g>
     <g id="explode_square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
+      <use xlink:href="#square" x="0" y="0"/>
       <use xlink:href="#explosion" x="200" y="170" transform="scale(.025,.025)"/>
     </g>
   </defs>
 
   <g text-anchor="middle" >
-    <use (mouseup)="click($event, obj.col, obj.row)" (contextmenu)="false" *ngFor="let obj of gameObjects"
+    <use (mousedown)="mousedown($event, obj.col, obj.row)" (mouseup)="mouseup($event, obj.col, obj.row)" (contextmenu)="false" *ngFor="let obj of gameObjects"
          [attr.x]="obj.x"
          [attr.y]="obj.y"
          [attr.width]="obj.width"

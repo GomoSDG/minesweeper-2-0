@@ -16,10 +16,10 @@ export interface ISquare {
 export class Square extends GameObject implements ISquare {
   public hasFlag: boolean;
   public hasMine: boolean;
-  protected col: number;
+  col: number;
   protected size: number;
   protected margin: number;
-  protected row: number;
+  row: number;
   public surroundingMines: number;
   public popped: boolean;
 
@@ -32,7 +32,7 @@ export class Square extends GameObject implements ISquare {
     this.size = size;
     this.hasMine = false;
     this.popped = false;
-    this.surroundingMines = Math.floor(Math.random() * 8) + 1;
+    this.surroundingMines = 0;
     this.generatePosition();
   }
 
@@ -42,15 +42,24 @@ export class Square extends GameObject implements ISquare {
   }
 
   pop(): boolean {
-    if (this.hasMine && !this.hasFlag) {
-      this.template = 'explode_square';
-      this.popped = true;
-    } else if (!this.hasFlag) {
-      this.template = `${this.surroundingMines}square`;
+    if (!this.hasFlag) {
+      this.reveal(true);
       this.popped = true;
     }
 
     return this.hasMine && !this.hasFlag;
+  }
+
+  reveal(pop: boolean): void {
+    if (this.hasMine) {
+      if (pop) {
+        this.template = 'explode_square';
+      } else {
+        this.template = 'mineSquare';
+      }
+    } else {
+      this.template = `${this.surroundingMines}square`;
+    }
   }
 
   toggleFlag(): boolean {
@@ -71,9 +80,8 @@ export class Square extends GameObject implements ISquare {
       return false;
     }
 
-    // Set mine true and change template;
+    // Set hasMine true and change template.
     this.hasMine = true;
-    this.template = 'mineSquare';
 
     // Put mine successfully.
     return true;

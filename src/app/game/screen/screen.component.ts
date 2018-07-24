@@ -10,6 +10,7 @@ import {ISquare, Square} from '../square/models/Square';
 export class ScreenComponent implements OnInit {
   public squareSize = 20;
   gameObjects: Square[] = [];
+  private audioDict = {};
   private playground: Playground;
 
   constructor() { }
@@ -17,17 +18,29 @@ export class ScreenComponent implements OnInit {
   ngOnInit() {
     this.playground = new Playground;
     this.gameObjects = this.playground.toArray();
+    this.audioDict['explosion'] = new Audio();
+    this.audioDict['explosion'].src = '../../../assets/sounds/explosion.ogg';
+    this.audioDict['explosion'].load();
   }
 
 
-  click(e, x, y) {
-    console.log(e.button);
+  mouseup(e, x, y) {
     if (e.button === 2) {
+      // Can have sounds for when pitching flag.
       this.playground.toggleFlag(x, y);
-      // e.stopImmediatePropagation();
     } else {
-      this.playground.pop(x, y);
+      if (this.playground.pop(x, y)) {
+        this.audioDict['explosion'].play();
+        for (const mine of this.playground.toArray()) {
+          if (mine.hasMine && mine.col !== x && mine.row !== y) {
+            mine.reveal(false);
+          }
+        }
+      }
     }
+  }
+
+  mousedown(e, x, y) {
 
   }
 
