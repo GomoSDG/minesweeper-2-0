@@ -6,6 +6,8 @@ export class Playground {
   public squareSize: number;
   public width: number;
   public dimensions: Point;
+  private groundWidth: number;
+  private groundHeight: number;
 
   toArray() {
     return this.squares.reduce((a, b) => {
@@ -14,11 +16,13 @@ export class Playground {
   }
 
   constructor() {
-    this.generateGround(11, 10);
+    this.groundWidth = 11, this.groundHeight = 10;
+    this.generateGround(this.groundWidth, this.groundHeight);
+    this.generateMines(25);
   }
 
   generateGround(x: number, y: number) {
-    console.log(x, y)
+    console.log(x, y);
     for (let cx = 0; cx < x; cx++ ) {
       this.squares[cx] = [];
       for (let cy = 0; cy < y; cy++) {
@@ -28,7 +32,22 @@ export class Playground {
     return this;
   }
 
+  generateMines(num: number) {
+    for (let x = 0; x < num; ) {
+      const posX = Math.floor(Math.random() * this.groundWidth);
+      const posY = Math.floor(Math.random() * this.groundHeight);
+
+      if (this.squares[posX][posY].putMine()) {
+        x++;
+      }
+    }
+  }
+
   pop(x: number, y: number) {
     return this.squares[x][y].pop();
+  }
+
+  toggleFlag(x: number, y: number) {
+    return this.squares[x][y].toggleFlag();
   }
 }
