@@ -16,46 +16,54 @@
       <!-- radius = 10% of the height/width -->
       <rect fill="#AAAAAA" stroke-width="0.5" x="1" y="1" [attr.width]="squareSize" [attr.height]="squareSize" rx="2" ry="2"/>
     </g>
+    <g id="0square">
+      <!-- radius = 10% of the height/width -->
+      <rect fill="#AAAAAA" stroke-width="0.5" x="1" y="1" [attr.width]="squareSize" [attr.height]="squareSize" rx="2" ry="2"/>
+    </g>
     <g id="bordered_square">
       <!-- radius = 10% of the height/width -->
       <rect fill="#AAAAAA" stroke-width="0.5" stroke="#4056A1" x="1" y="1" [attr.width]="squareSize" [attr.height]="squareSize" rx="2" ry="2"/>
     </g>
-    <g id="flagged_square">
+    <g id="flag_square">
       <!-- radius = 10% of the height/width -->
       <rect fill="#AAAAAA" stroke-width="0.5" stroke="#4056A1" x="1" y="1" [attr.width]="squareSize" [attr.height]="squareSize" rx="2" ry="2"/>
       <use xlink:href="#flag" x="20" y="15" width="5" height="5" transform="scale(.2, .2)"/>
     </g>
     <g id="1square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
-      <text x="6" y="16">1</text>
+      <use xlink:href="#square" x="0" y="0"/>
+      <text x="11" y="16">1</text>
+    </g>
+    <g id="mineSquare">
+      <use xlink:href="#bordered_square"/>
+      <image xlink:href="../assets/mine.png" x="5" y="4" height="13" width="13"/>
     </g>
     <g id="2square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
-      <text x="7" y="16">2</text>
+      <use xlink:href="#square" x="0" y="0"/>
+      <text x="11" y="16">2</text>
     </g>
     <g id="3square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
-      <text x="7" y="16">3</text>
+      <use xlink:href="#square" x="0" y="0"/>
+      <text x="11" y="16">3</text>
     </g>
     <g id="4square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
-      <text x="7" y="16">4</text>
+      <use xlink:href="#square" x="0" y="0"/>
+      <text x="11" y="16">4</text>
     </g>
     <g id="5square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
-      <text x="7" y="16">5</text>
+      <use xlink:href="#square" x="0" y="0"/>
+      <text x="11" y="16">5</text>
     </g>
     <g id="6square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
-      <text x="7" y="16">6</text>
+      <use xlink:href="#square" x="0" y="0"/>
+      <text x="11" y="16">6</text>
     </g>
     <g id="7square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
-      <text x="7" y="16">7</text>
+      <use xlink:href="#square" x="0" y="0"/>
+      <text x="11" y="16">7</text>
     </g>
     <g id="8square">
-      <use xlink:href="#bordered_square" x="0" y="0"/>
-      <text x="7" y="16">8</text>
+      <use xlink:href="#square" x="0" y="0"/>
+      <text x="11" y="16">8</text>
     </g>
     <g
       id="explosion"
@@ -79,8 +87,8 @@
     </g>
   </defs>
 
-  <g text-anchor="middle">
-    <use (mouseup)="click($event, obj.col, obj.row)" *ngFor="let obj of gameObjects"
+  <g text-anchor="middle" >
+    <use (mouseup)="click($event, obj.col, obj.row)" (contextmenu)="false" *ngFor="let obj of gameObjects"
          [attr.x]="obj.x"
          [attr.y]="obj.y"
          [attr.width]="obj.width"
