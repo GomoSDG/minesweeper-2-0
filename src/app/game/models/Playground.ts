@@ -18,7 +18,7 @@ export class Playground {
   constructor() {
     this.groundWidth = 11, this.groundHeight = 10;
     this.generateGround(this.groundWidth, this.groundHeight);
-    this.generateMines(25);
+    this.generateMines(5);
     this.generateNumbers();
   }
 
@@ -43,8 +43,37 @@ export class Playground {
     }
   }
 
+  cascadeZeroSquare({col, row}) {
+    console.log('Yes!!!');
+    for (let y = row - 1; y < row + 3; y++) {
+      if (y < 0 || y > this.squares[0].length - 1) {
+        continue;
+      }
+
+      for (let x = col - 1; x < col + 3; x++) {
+        if ((col === x && row === y) || (x < 0 || x > this.squares.length - 1)) {
+          continue;
+        }
+
+        const currentSquare = this.squares[x][y];
+        const surroundingMines = currentSquare.surroundingMines
+        const isNoneZero = currentSquare.isNoneZero;
+
+        if (!isNoneZero && !currentSquare.popped && surroundingMines === 0) {
+          this.pop(currentSquare.col, currentSquare.row);
+        }
+      }
+    }
+  }
+
   pop(x: number, y: number) {
-    return this.squares[x][y].pop();
+    const currentSquare = this.squares[x][y];
+    const revealInfo: any = currentSquare.pop();
+    if (currentSquare.surroundingMines === 0) {
+      console.log('Cascading!!!');
+      this.cascadeZeroSquare(this.squares[x][y]);
+    }
+    return revealInfo;
   }
 
   toggleFlag(x: number, y: number) {

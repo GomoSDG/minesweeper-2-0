@@ -29,7 +29,8 @@ export class ScreenComponent implements OnInit {
       // Can have sounds for when pitching flag.
       this.playground.toggleFlag(x, y);
     } else {
-      if (this.playground.pop(x, y)) {
+      const {hasMine, isNoneZero} = this.playground.pop(x, y);
+      if (hasMine) {
         this.audioDict['explosion'].play();
         for (const mine of this.playground.toArray()) {
           if (mine.hasMine && mine.col !== x && mine.row !== y) {

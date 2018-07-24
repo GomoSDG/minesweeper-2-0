@@ -4,7 +4,7 @@ export interface ISquare {
   hasFlag: boolean;
   hasMine: boolean;
 
-  pop(): boolean;
+  pop(): any;
 
   toggleFlag(): boolean;
 
@@ -32,7 +32,7 @@ export class Square extends GameObject implements ISquare {
     this.size = size;
     this.hasMine = false;
     this.popped = false;
-    this.surroundingMines = 0;
+    this.surroundingMines = null;
     this.generatePosition();
   }
 
@@ -43,15 +43,17 @@ export class Square extends GameObject implements ISquare {
 
   pop(): any {
     let revealInfo: any;
+
     if (!this.hasFlag) {
       revealInfo = this.reveal(true);
       this.popped = true;
+      return revealInfo;
     }
 
     // TODO: Create interface for reveal info.
     return {
       hasMine: this.hasMine,
-      isNoneZero: this.surroundingMines > 0
+      isNoneZero: this.surroundingMines > 0 || this.hasMine
     };
   }
 
@@ -68,7 +70,7 @@ export class Square extends GameObject implements ISquare {
 
     return  {
       hasMine: this.hasMine,
-      isNoneZero: this.surroundingMines > 0
+      isNoneZero: this.surroundingMines > 0 || this.hasMine
     };
   }
 
@@ -89,6 +91,8 @@ export class Square extends GameObject implements ISquare {
       // Already has mine
       return false;
     }
+
+    this.surroundingMines = -1;
 
     // Set hasMine true and change template.
     this.hasMine = true;
