@@ -1,5 +1,5 @@
 import {IGameObject} from './IGameObject';
-import {ITransform} from '../../transformations/ITransform';
+import {ITransform} from '../transformations/ITransform';
 
 export class GameObject implements IGameObject {
   public height: number;

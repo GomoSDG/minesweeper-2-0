@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Playground} from '../Minesweeper/Playground';
-import {ISquare, Square} from '../square/models/Square';
+import {ISquare, Square} from '../models/Square';
 
 @Component({
   selector: 'app-screen',

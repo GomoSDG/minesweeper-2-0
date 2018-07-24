@@ -41,16 +41,21 @@ export class Square extends GameObject implements ISquare {
     this.y = this.row * this.size + this.margin * this.row;
   }
 
-  pop(): boolean {
+  pop(): any {
+    let revealInfo: any;
     if (!this.hasFlag) {
-      this.reveal(true);
+      revealInfo = this.reveal(true);
       this.popped = true;
     }
 
-    return this.hasMine && !this.hasFlag;
+    // TODO: Create interface for reveal info.
+    return {
+      hasMine: this.hasMine,
+      isNoneZero: this.surroundingMines > 0
+    };
   }
 
-  reveal(pop: boolean): void {
+  reveal(pop: boolean): any {
     if (this.hasMine) {
       if (pop) {
         this.template = 'explode_square';
@@ -60,6 +65,11 @@ export class Square extends GameObject implements ISquare {
     } else {
       this.template = `${this.surroundingMines}square`;
     }
+
+    return  {
+      hasMine: this.hasMine,
+      isNoneZero: this.surroundingMines > 0
+    };
   }
 
   toggleFlag(): boolean {
