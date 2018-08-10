@@ -22,6 +22,7 @@ export class Square extends GameObject implements ISquare {
   row: number;
   public surroundingMines: number;
   public popped: boolean;
+  private pos: (number | number)[];
 
   constructor (col: number, row: number, size: number, margin: number) {
     super();
@@ -39,6 +40,7 @@ export class Square extends GameObject implements ISquare {
   generatePosition() {
     this.x = this.col * this.size + this.margin * this.col;
     this.y = this.row * this.size + this.margin * this.row;
+    this.pos = [this.x, this.y];
   }
 
   pop(): any {

@@ -9,16 +9,16 @@ export class Playground {
   private groundWidth: number;
   private groundHeight: number;
 
-  toArray() {
+  toArray(): any[] {
     return this.squares.reduce((a, b) => {
       return a.concat(b);
     });
   }
 
   constructor() {
-    this.groundWidth = 5, this.groundHeight = 5;
+    this.groundWidth = 8, this.groundHeight = 8;
     this.generateGround(this.groundWidth, this.groundHeight);
-    this.generateMines(5);
+    this.generateMines(10);
     this.generateNumbers();
   }
 
@@ -55,8 +55,7 @@ export class Playground {
         }
 
         const currentSquare = this.squares[x][y];
-        const surroundingMines = currentSquare.surroundingMines
-        const isNoneZero = currentSquare.isNoneZero;
+        const surroundingMines = currentSquare.surroundingMines;
 
         if (!currentSquare.popped && surroundingMines === 0 && !currentSquare.hasMine) {
           this.pop(currentSquare.col, currentSquare.row);
@@ -68,7 +67,7 @@ export class Playground {
   pop(x: number, y: number) {
     const currentSquare = this.squares[x][y];
     const revealInfo: any = currentSquare.pop();
-    if (currentSquare.surroundingMines === 0) {
+    if (currentSquare.surroundingMines === 0 && !currentSquare.hasMine) {
       this.cascadeZeroSquare(this.squares[x][y]);
     }
     return revealInfo;
@@ -110,5 +109,9 @@ export class Playground {
     }
 
     return count;
+  }
+
+  get(x: any, y: any) {
+    return this.squares[x][y];
   }
 }

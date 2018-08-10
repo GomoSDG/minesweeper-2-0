@@ -13,7 +13,8 @@ export class ScreenComponent implements OnInit {
   private audioDict = {};
   private playground: Playground;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.playground = new Playground;
@@ -29,14 +30,14 @@ export class ScreenComponent implements OnInit {
       // Can have sounds for when pitching flag.
       this.playground.toggleFlag(x, y);
     } else {
-      const {hasMine, isNoneZero} = this.playground.pop(x, y);
+      const {hasMine} = this.playground.pop(x, y);
       if (hasMine) {
         this.audioDict['explosion'].play();
-        for (const mine of this.playground.toArray()) {
-          if (mine.hasMine && mine.col !== x && mine.row !== y) {
-            mine.reveal(false);
-          }
-        }
+        const currentMine = this.playground.get(x, y);
+        this.playground
+          .toArray()
+          .filter(e => e.hasMine && e.pos !== currentMine.pos)
+          .forEach( mine => mine.reveal(false));
       }
     }
   }
